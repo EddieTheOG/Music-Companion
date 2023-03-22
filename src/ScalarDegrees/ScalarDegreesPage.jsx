@@ -11,10 +11,14 @@ function ScalarDegreesPage() {
   const [currentScale, setCurrentScale] = useState(MajorKeysMap[currentKey]);
   const [scaleDegree, setScaleDegree] = useState(getRandomNonZeroInt(7) + getRandomInt(2)*7);
   const [revealAnswer, setRevealAnswer] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [totalQuestions, setTotalQuestions] = useState(0);
 
   const submitAnswer = (e) => {
     let submittedAnswer = e.target.value;
+    setTotalQuestions(totalQuestions+1);
     if (submittedAnswer === currentScale[(scaleDegree % 7) - 1]) {
+      setCorrectAnswers(correctAnswers+1);
       // change color of target button to success
     }
     else {
@@ -24,14 +28,19 @@ function ScalarDegreesPage() {
   }
 
   const generateNewQuestion = () => {
-    setCurrentKey(KEYS[getRandomInt(11)]);
-    setCurrentScale(MajorKeysMap[currentKey]);
+    // wonder if there is a way to promisify setCurrentKey.then -> setCurrentScale
+    let nextKey = KEYS[getRandomInt(11)];
+    setCurrentKey(nextKey);
+    setCurrentScale(MajorKeysMap[nextKey]);
     setScaleDegree(getRandomNonZeroInt(7) + getRandomInt(2)*7);
     setRevealAnswer(false);
   }
 
   return (
     <div className='scalar-degrees'>
+      <div className="hud">
+        <p>Score: {`${correctAnswers} / ${totalQuestions}`}</p>
+      </div>
       <Flashcard 
         currentKey={currentKey}
         scaleDegree={scaleDegree}
@@ -40,12 +49,13 @@ function ScalarDegreesPage() {
       />
       <NoteButtons
         submitAnswer={submitAnswer}
-      />
-      { revealAnswer && 
-        <button onClick={generateNewQuestion}>
-          Next Question
-        </button>
-      }
+        disabled={revealAnswer}
+      /> 
+      <button 
+        className={revealAnswer ? "visibility" : "hidden"}
+        onClick={generateNewQuestion}>
+        Next Question
+      </button>
     </div>
   )
 }
