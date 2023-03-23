@@ -3,18 +3,12 @@ import LoginPage from '../LoginPage/LoginPage';
 
 const RouteGuard = ({ component: Component, ...rest }) => {
  
-    const navigate = useNavigate();
     function hasJWT() {
-        let flag = false;
-  
-        //check user has JWT token
-        localStorage.getItem("token") ? flag=true : flag=false
-       
-        return flag;
+        return localStorage.getItem("token") ? true : false       
     }
   
     return (
-        hasJWT() ? <Component {...props} /> : <LoginPage /> 
+        hasJWT() ? <Component /> : <LoginPage /> 
     );
  };
   

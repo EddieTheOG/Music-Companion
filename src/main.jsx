@@ -9,11 +9,11 @@ import ScalarDegreesPage from './ScalarDegrees/ScalarDegreesPage';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RouteGuard component={App}/>,
+    element: <RouteGuard component={App} />,
   },
   {
     path: "/scalar-degrees",
-    element: <ScalarDegreesPage/>,
+    element: <RouteGuard component={ScalarDegreesPage} />,
   },
 ]);
 

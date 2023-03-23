@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { setAuthToken } from "../Utilities/setAuthToken";
 
 
 function LoginPage() {
@@ -8,19 +9,19 @@ function LoginPage() {
     let location = useLocation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
 
     let from = location.state?.from?.pathname || "/";
   
     function handleSubmit(e) {
       e.preventDefault();
 
-    //   fetch('localhost:4001/login', { method: 'POST', body: { email, password }})
-    //     .then( (response) => {
-    //         console.log(response);
-    //     });
         axios.post('http://localhost:4001/login', { email, password } )
         .then( (response) => {
-            console.log(response);
+            const { token } = response.data;
+
+            setAuthToken(token);
+            navigate("/");
         })
         .catch(err => {
             console.log(err);
