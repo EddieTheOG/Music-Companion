@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MajorKeysMap, KEYS } from '../constants/constants';
 import { getRandomInt, getRandomNonZeroInt } from '../Utilities/utilities';
-import './scalardegrees.css';
+import './ScalarDegrees.css';
 import Flashcard from './components/Flashcard';
 import NoteButtons from './components/NoteButtons';
 
