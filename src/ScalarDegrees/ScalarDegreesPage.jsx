@@ -38,6 +38,7 @@ function ScalarDegreesPage() {
 
   return (
     <div className='scalar-degrees'>
+      <h1>Guess that Scalar Degree</h1>
       <div className="hud">
         <p>Score: {`${correctAnswers} / ${totalQuestions}`}</p>
       </div>
@@ -50,12 +51,20 @@ function ScalarDegreesPage() {
       <NoteButtons
         submitAnswer={submitAnswer}
         disabled={revealAnswer}
-      /> 
-      <button 
-        className={revealAnswer ? "visibility" : "hidden"}
-        onClick={generateNewQuestion}>
-        Next Question
-      </button>
+      />
+      <div className="test-btn-group"> 
+        <button 
+          // onClick={endSession}
+        >
+        End Session
+        </button>
+        <button 
+          className="next-question"
+          disabled={!revealAnswer}
+          onClick={generateNewQuestion}>
+          Next Question
+        </button>
+      </div>
     </div>
   )
 }
