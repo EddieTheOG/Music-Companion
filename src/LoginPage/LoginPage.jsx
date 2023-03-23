@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { loginApi } from '../api/UserApi';
 import { setAuthToken } from '../Utilities/setAuthToken';
 import './LoginPage.css';
 
@@ -15,12 +16,8 @@ function LoginPage() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // move this to api at some point
-    axios
-      .post('http://localhost:4001/login', { email, password })
-      .then((response) => {
-        const { token } = response.data;
-
+    loginApi({ email, password })
+      .then((token) => {
         setAuthToken(token);
         navigate('/exercises');
       })
