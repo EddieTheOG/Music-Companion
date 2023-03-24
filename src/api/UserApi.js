@@ -13,3 +13,21 @@ export async function loginApi({ email, password }) {
 
   return token;
 }
+
+export async function registerApi({ email, password, firstName, lastName }) {
+  const { token } = await axios
+    .post('http://localhost:4001/register', {
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return token;
+}

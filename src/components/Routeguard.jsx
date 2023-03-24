@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
 
@@ -6,7 +7,15 @@ const RouteGuard = ({ component: Component, ...rest }) => {
     return localStorage.getItem('token') ? true : false;
   }
 
-  return hasJWT() ? <Component /> : <LoginPage />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!hasJWT()) {
+      navigate('/login');
+    }
+  }, []);
+
+  return hasJWT() ? <Component /> : <></>;
 };
 
 export default RouteGuard;

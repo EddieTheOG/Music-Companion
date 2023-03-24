@@ -1,17 +1,13 @@
-import axios from 'axios';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginApi } from '../api/UserApi';
 import { setAuthToken } from '../Utilities/setAuthToken';
 import './LoginPage.css';
 
 function LoginPage() {
   let navigate = useNavigate();
-  let location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  let from = location.state?.from?.pathname || '/';
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +22,10 @@ function LoginPage() {
       });
   }
 
-  const register = () => {};
+  // TO-DO:redirect to Register Component
+  const register = () => {
+    navigate('/register');
+  };
 
   return (
     <div className="login-page">
